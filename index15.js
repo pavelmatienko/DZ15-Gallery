@@ -1,31 +1,23 @@
-// sendGetPhotoRequest тебе не нужен этот метод, у тебя уже есть sendGetPhotosRequest, 
-// когда у тебя успешно выполнился sendGetAlbumsRequest ты можешь взять из альбомов первый элемент, 
-// у него взять id и вызвать sendGetAlbumsRequest
-
-
-// Ну и по хорошему у тебя метод для запроса должен делать только запрос, 
-// а что делать с результатом должна решать другая функция.
-
-// Ну и лично мне кажется что удобнее вставлять html, а не создавать элемент через document.createElement
-
 const albumsListElement = document.querySelector('.js-list-albums');
-const pImage = document.querySelector('.js-gallery-photo');
+const imageListElement = document.querySelector('.js-gallery-photo');
 
 function sendGetPhotosRequest(albumId) {
     fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`)
     .then((response) => response.json())
     .then((albums) => {
-        pImage.innerHTML = '';		
+        imageListElement.innerHTML = '';		
         renderPhotos(albums);
     })
     .catch((error) => console.error('Ошибка:', error));
 }
+
 function sendGetAlbumsRequest() {
     return fetch('https://jsonplaceholder.typicode.com/albums')
     .then((response) => response.json())
     .then((albums) => {
         albums.map((item,id) => {
-            renderAlbums(item.title,id);	
+            renderAlbums(item.title,id);
+            	
         });
     })
     .catch((error) => console.error('Ошибка:', error));
@@ -63,7 +55,6 @@ function addAlbumsListClickEventListener() {
         sendGetPhotosRequest(albumId);
     });	
 }
-
 addAlbumsListClickEventListener();
 
 function createImgElement(photo) {
@@ -71,5 +62,5 @@ function createImgElement(photo) {
     img.src = photo.url;
     img.width = 550;
     img.height = 150;
-    pImage.append(img);
+    imageListElement.append(img);
 }
