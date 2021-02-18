@@ -1,3 +1,9 @@
+// 1. sendGetPhotoRequest тебе не нужен этот метод, у тебя уже есть sendGetPhotosRequest, 
+// когда у тебя успешно выполнился sendGetAlbumsRequest ты можешь взять из альбомов первый элемент, 
+// у него взять id и вызвать sendGetAlbumsRequest
+
+// 2. Вставлять html, а не создавать элемент через document.createElement
+
 const albumsListElement = document.querySelector('.js-list-albums');
 const imageListElement = document.querySelector('.js-gallery-photo');
 
@@ -16,8 +22,7 @@ function sendGetAlbumsRequest() {
     .then((response) => response.json())
     .then((albums) => {
         albums.map((item,id) => {
-            renderAlbums(item.title,id);
-            	
+            renderAlbums(item.title,id); 	
         });
     })
     .catch((error) => console.error('Ошибка:', error));
@@ -43,8 +48,8 @@ function renderAlbums(title,id) {
 }
 
 function renderPhotos(albums) {
-    albums.map((photo) => {
-        createImgElement(photo);	
+    albums.map((photos) => {
+        createImgElement(photos);	
     });
 }
 
