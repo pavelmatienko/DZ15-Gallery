@@ -1,21 +1,5 @@
-// 1. sendGetPhotoRequest тебе не нужен этот метод, у тебя уже есть sendGetPhotosRequest, 
-// когда у тебя успешно выполнился sendGetAlbumsRequest ты можешь взять из альбомов первый элемент, 
-// у него взять id и вызвать sendGetAlbumsRequest
-
-// 2. Вставлять html, а не создавать элемент через document.createElement
-
 const albumsListElement = document.querySelector('.js-list-albums');
 const imageListElement = document.querySelector('.js-gallery-photo');
-
-function sendGetPhotosRequest(albumId) {
-    fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`)
-    .then((response) => response.json())
-    .then((albums) => {
-        imageListElement.innerHTML = '';		
-        renderPhotos(albums);
-    })
-    .catch((error) => console.error('Ошибка:', error));
-}
 
 function sendGetAlbumsRequest() {
     return fetch('https://jsonplaceholder.typicode.com/albums')
@@ -29,15 +13,16 @@ function sendGetAlbumsRequest() {
 }
 sendGetAlbumsRequest();
 
-function sendGetPhotoRequest() {
-    return fetch('https://jsonplaceholder.typicode.com/photos?albumId=1')
+function sendGetPhotosRequest(albumId=1) {
+    fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`)
     .then((response) => response.json())
     .then((albums) => {
+        imageListElement.innerHTML = '';		
         renderPhotos(albums);
     })
     .catch((error) => console.error('Ошибка:', error));
 }
-sendGetPhotoRequest()
+sendGetPhotosRequest()
 
 function renderAlbums(title,id) {
     const albumTodo = document.createElement('div');
