@@ -1,0 +1,10 @@
+.js-list-albums:hover{
+    cursor: pointer;
+}
+.alert-primary:hover{
+    background-color: beige;
+    color: brown;
+}
+.js-gallery-photo:hover{
+    cursor: pointer;
+}
